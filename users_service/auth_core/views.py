@@ -78,3 +78,6 @@ class APILoginView(GenericViewSet):
     def logout(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
+
+def home_redirect(request):
+    return redirect('login')
