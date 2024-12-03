@@ -46,11 +46,11 @@ docker compose up --build
 
 ### Вход в систему
 
-#### localhost:8000/login/
+#### http://localhost:8000/login/
 
 - **Описание**: Форма для входа в систему по номеру телефона.
 
-#### localhost:8000/verify/
+#### http://localhost:8000/verify/
 
 - **Описание**: Форма для подтверждения номера телефона с помощью OTP-кода. Код отображается в консоли.
 
@@ -59,7 +59,7 @@ docker compose up --build
 
 ### Профиль пользователя
 
-#### localhost:8000/users/{id}
+#### http://localhost:8000/users/{id}
 
 - **Описание**: Форма профиля пользователя, использующая TemplateHTMLRenderer от DRF. Инвайт-код можно ввести только в своем профиле.
 
@@ -69,14 +69,14 @@ docker compose up --build
 
 Документация доступна по ссылкам
 
- - http:/localhost:8000/redoc/
- - http:/localhost:8000/swagger/
+ - http://localhost:8000/redoc/
+ - http://localhost:8000/swagger/
 
 
 ### Вход в систему
 
 #### `POST /api/v1/login/`
-
+- **Ссылка**: http://localhost:8000/api/v1/login/
 - **Описание**: Отправка SMS с кодом подтверждения на указанный номер телефона.
 - **Параметры**:
   - `data` (body):
@@ -94,6 +94,7 @@ docker compose up --build
 > [!IMPORTANT]
 > OTP код отображается в консоли.
 
+- **Ссылка**: http://localhost:8000/api/v1/verify/
 - **Параметры**:
   - `data` (body):
     - `code`: Введенный код подтверждения.
@@ -106,6 +107,7 @@ docker compose up --build
 
 #### `POST /api/v1/logout/`
 
+- **Ссылка**: http://localhost:8000/api/v1/logout/
 - **Описание**: Завершает текущую сессию пользователя.
 - **Ответы**:
   - `200`: Успешный выход из системы.
@@ -115,6 +117,7 @@ docker compose up --build
 
 #### `GET /api/v1/users/`
 
+- **Ссылка**: http://localhost:8000/api/v1/users/
 - **Описание**: Возвращает список всех пользователей.
 - **Ответы**:
   - `200`: Список пользователей.
@@ -125,6 +128,7 @@ docker compose up --build
 
 #### `GET /api/v1/users/{id}/`
 
+- **Ссылка**: http://localhost:8000/api/v1/users/{id}/1
 - **Описание**: Возвращает профиль конкретного пользователя по его ID.
 - **Параметры**:
   - `id` (путь): Уникальный идентификатор пользователя.
@@ -138,6 +142,7 @@ docker compose up --build
 
 #### `GET /api/v1/users/validate-referral/{referral_code}/`
 
+- **Ссылка**: http://localhost:8000/api/v1/users/validate-referral/AAAAAA/
 - **Описание**: Проверяет, доступен ли указанный реферальный код.
 - **Параметры**:
   - `referral_code` (путь): Реферальный код для проверки.
@@ -151,6 +156,7 @@ docker compose up --build
 
 #### `POST /api/v1/users/apply-referral/`
 
+- **Ссылка**: http://localhost:8000/api/v1/users/apply-referral/
 - **Описание**: Позволяет пользователю активировать реферальный код.
 - **Параметры**:
   - `data` (body):
