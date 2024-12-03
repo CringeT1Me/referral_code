@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.core.cache import cache
 from django.test import TestCase, Client
 from django.urls import reverse
 from phonenumber_field.phonenumber import PhoneNumber
@@ -15,7 +14,6 @@ class LoginViewTest(TestCase):
         self.session = self.client.session
         self.session['phone_number'] = self.phone_number
         self.session.save()
-        cache.set(self.phone_number, '1234')
 
     def test_get_login_page(self):
         response = self.client.get(reverse('login'))
@@ -34,11 +32,11 @@ class LoginViewTest(TestCase):
 
 class APILoginViewTest(APITestCase):
     def setUp(self):
-        self.phone_number = '1234567890'
-        phone_number_obj = PhoneNumber.from_string(phone_number='1234567890')
+        self.phone_number = '89371112004'
+        phone_number_obj = PhoneNumber.from_string(phone_number='89371112004')
         self.user = User.objects.create_user(phone_number=phone_number_obj)
-        cache.set(self.phone_number, 1234, timeout=60*5)
 
     def test_api_login_success(self):
         response = self.client.post('/api/v1/login/', {'phone_number': self.phone_number})
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

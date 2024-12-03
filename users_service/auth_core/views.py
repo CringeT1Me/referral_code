@@ -30,7 +30,6 @@ class LoginView(View):
 
         if form.is_valid():
             phone_number = form.cleaned_data['phone_number']
-            request.session['phone_number'] = phone_number.national_number
             phone_number_obj = PhoneNumber.from_string(phone_number=str(phone_number.national_number))
             user = authenticate(phone_number=phone_number_obj)
             login(request, user)
@@ -62,7 +61,7 @@ class APILoginView(GenericViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             phone_number = serializer.validated_data['phone_number']
-            request.session['phone_number'] = phone_number
+            print(phone_number)
             phone_number_obj = PhoneNumber.from_string(phone_number=str(phone_number))
             user = authenticate(phone_number=phone_number_obj)
             login(request, user)
