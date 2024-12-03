@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "7c4f7a01-e5a8-407d-a187-0d9038e5c548",
+		"name": "referral_code",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40130921"
+	},
+	"item": [
+		{
+			"name": "testslink.ru/api/v1/login/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone_number",
+							"value": "89371110001",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "testslink.ru/api/v1/login/",
+					"host": [
+						"testslink",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testslink.ru/api/v1/users/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "testslink.ru/api/v1/users/",
+					"host": [
+						"testslink",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testslink.ru/api/v1/users/1/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "testslink.ru/api/v1/users/1/",
+					"host": [
+						"testslink",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testslink.ru/api/v1/users/validate-referral/YMOPAD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "testslink.ru/api/v1/users/validate-referral/YMOPAD",
+					"host": [
+						"testslink",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"validate-referral",
+						"YMOPAD"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testslink.ru/api/v1/users/apply-referral/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Получаем CSRF-токен из переменных окружения",
+							"var csrfToken = pm.environment.get('csrftoken');",
+							"",
+							"// Добавляем CSRF-токен в заголовок запроса",
+							"if (csrfToken) {",
+							"    pm.request.headers.add({",
+							"        key: 'X-CSRFToken',",
+							"        value: csrfToken",
+							"    });",
+							"} else {",
+							"    console.log('CSRF token is not set in environment.');",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "NWHl3homLwe0t6YIO26RtPSWDBJOdVDa",
+						"description": "Если возникает ошибка с CSRF, вставьте сюда csrftoken из Cookies.",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "referral_code",
+							"value": "YMOPAD",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "testslink.ru/api/v1/users/apply-referral/",
+					"host": [
+						"testslink",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"apply-referral",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testslink.ru/api/v1/logout/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "NWHl3homLwe0t6YIO26RtPSWDBJOdVDa",
+						"description": "Если возникает ошибка с CSRF, вставьте сюда csrftoken из Cookies",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "testslink.ru/api/v1/logout/",
+					"host": [
+						"testslink",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
