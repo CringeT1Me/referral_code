@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    width: 60%;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-details {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.profile-details p {
+    margin: 10px 0;
+}
+
+.referrals ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.referrals ul li {
+    padding: 5px 0;
+}
+
+.referrals h2 {
+    margin-top: 20px;
+}
+
+.referral-input {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#referral-code {
+    width: 350px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#referral-code:focus {
+    border-color: #4CAF50;
+}
+
+#apply-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#apply-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#apply-button:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+#validation-message {
+    margin-top: 10px;
+    color: #ff4d4d;
+    font-size: 14px;
+}
+
+.logout-button {
+    text-align: right;
+    margin-top: 20px;
+}
+
+#logout-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#logout-button:hover {
+    background-color: #ff3333;
+}
