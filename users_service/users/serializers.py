@@ -12,10 +12,11 @@ class ReferralPhoneSerializer(ModelSerializer):
 
 class UserSerializer(ModelSerializer):
     referrals = serializers.SerializerMethodField()
-    applied_code  = serializers.CharField(source='refers_to.referral_code', required=False)
+    applied_code  = serializers.CharField(source='refers_to.referral_code', required=False, read_only=True)
     class Meta:
         model = get_user_model()
         fields = ['id', 'phone_number', 'referral_code', 'referrals', 'refers_to', 'applied_code']
+        read_only_fields = fields
 
     @swagger_serializer_method(serializer_or_field=ReferralPhoneSerializer(many=True))
     def get_referrals(self, obj):
