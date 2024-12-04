@@ -19,6 +19,15 @@ document.getElementById('logout-button').addEventListener('click', async () => {
     }
 });
 
+document.getElementById('user-list-button').addEventListener('click', async () => {
+    window.location.href = ('/users/');
+});
+
+document.getElementById('my-profile-button').addEventListener('click', function () {
+    const url = this.getAttribute('data-url');
+    window.location.href = url;
+});
+
 function getCSRFToken() {
     const name = 'csrftoken';
     const value = document.cookie.split(';').find(row => row.startsWith(name)).split('=')[1];

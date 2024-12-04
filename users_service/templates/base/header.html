@@ -1,4 +1,10 @@
 <header class="site-header">
+    <div class="left-buttons">
+        <button class="user-list-button" id="user-list-button">Список пользователей</button>
+    </div>
     <h1 class="site-title">Referral Code System</h1>
-    <button class="logout-button" id="logout-button">Выйти</button>
+    <div class="right-buttons">
+        <button class="my-profile-button" id="my-profile-button" data-url="{% url 'users-detail' pk=user.id %}">Мой профиль</button>
+        <button class="logout-button" id="logout-button">Выйти</button>
+    </div>
 </header>

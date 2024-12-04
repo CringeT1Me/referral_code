@@ -6,11 +6,17 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 
 class ReferralPhoneSerializer(ModelSerializer):
+    phone_number = serializers.SerializerMethodField()
+
     class Meta:
         model = get_user_model()
         fields = ['phone_number']
 
-class UserSerializer(ModelSerializer):
+    def get_phone_number(self, obj):
+        phone = obj.phone_number.as_e164
+        return phone[:5] + '***' + phone[-2:]
+
+class UserSerializer(ReferralPhoneSerializer):
     referrals = serializers.SerializerMethodField()
     applied_code  = serializers.CharField(source='refers_to.referral_code', required=False, read_only=True)
     class Meta:
