@@ -1,13 +1,14 @@
+{% extends 'base/base.html' %}
 {% load static %}
-
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
     <title>Профиль пользователя</title>
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-</head>
-<body>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'css/profile/retrieve.css' %}">
+{% endblock %}
+
+{% block content %}
     <div class="profile-container">
         <h1>Профиль пользователя</h1>
         <div class="profile-details">
@@ -32,10 +33,10 @@
         {% elif user.referral_code == referral_code %}
         <p>Примененный реферал: {{ applied_code }}</p>
         {% endif %}
-        <div class="logout-button">
-            <button id="logout-button">Выйти</button>
-        </div>
     </div>
-    <script src="{% static 'js/referral.js' %}"></script>
-</body>
-</html>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/profile/retrieve.js' %}"></script>
+{% endblock %}
+

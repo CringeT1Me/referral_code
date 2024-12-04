@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+    <title>Список профилей</title>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'css/profile/list.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% if count %}
+        {% for result in results %}
+            <div class="profile-container" data-url="{% url 'users-detail' pk=result.id %}">
+                <h1>Профиль пользователя</h1>
+                <div class="profile-details">
+                    <p>Номер телефона: {{ result.phone_number }}</p>
+                    <p>Реферальный код: {{ result.referral_code }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if count > 10 %}
+        <div class="pagination-container">
+            {% if previous %}
+                <a href="{{ previous }}" class="page-button previous-page">Предыдущая страница</a>
+            {% endif %}
+
+            <div class="page-numbers">
+                {% for page_num in page_range %}
+                    <a href="?page={{ page_num }}" class="page-number {% if page_num == current_page %}active{% endif %}">
+                        {{ page_num }}
+                    </a>
+                {% endfor %}
+            </div>
+
+            {% if next %}
+                <a href="{{ next }}" class="page-button next-page">Следующая страница</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/profile/list.js' %}"></script>
+{% endblock %}

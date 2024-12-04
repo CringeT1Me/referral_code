@@ -1,3 +1,5 @@
+from pydoc import pager
+
 from django.contrib.auth import get_user_model
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -14,11 +16,11 @@ from rest_framework.viewsets import GenericViewSet
 from users.serializers import UserSerializer, ReferralCodeSerializer
 
 
-class BaseUserViewSet(GenericViewSet, RetrieveModelMixin):
+class BaseUserViewSet(GenericViewSet, RetrieveModelMixin, ListModelMixin):
     """
     Базовый класс для наследования.
     API для валидации и применения реферального кода,
-    а также получения профиля пользователя.
+    а также получения списка профилей и конкретного профиля.
     """
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
@@ -41,8 +43,20 @@ class BaseUserViewSet(GenericViewSet, RetrieveModelMixin):
         """Переопределение retrieve для добавления документации"""
         return super().retrieve(request, *args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary='Получить список пользователей.',
+        operation_description='Возвращает список пользователей в пределах пагинации.',
+        responses={
+            200: openapi.Response('Список пользователей.', UserSerializer(many=True)),
+            403: openapi.Response('Пользователь не авторизован.'),
+            404: openapi.Response('Страница пуста')
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        """Переопределение list для добавления документации"""
+        return super().list(request, *args, **kwargs)
 
-class APIUserViewSet(BaseUserViewSet, ListModelMixin):
+class APIUserViewSet(BaseUserViewSet):
     """
     API для валидации и применения реферального кода,
     а также получения списка профилей и конкретного профиля.
@@ -52,18 +66,6 @@ class APIUserViewSet(BaseUserViewSet, ListModelMixin):
         if self.action == "apply_referral":
             return ReferralCodeSerializer
         return UserSerializer
-
-    @swagger_auto_schema(
-        operation_summary='Получить список пользователей',
-        operation_description='Возвращает список всех пользователей.',
-        responses={
-            200: openapi.Response('Список пользователей.', UserSerializer(many=True)),
-            403: openapi.Response('Пользователь не авторизован.')
-        }
-    )
-    def list(self, request, *args, **kwargs):
-        """Переопределение list для добавления документации"""
-        return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
         operation_summary='Применить реферальный код.',
@@ -117,9 +119,12 @@ class APIUserViewSet(BaseUserViewSet, ListModelMixin):
 
 class HTMLUserViewSet(BaseUserViewSet):
     """
-    Форма для профиля.
+    Форма для профиля и списка профилей.
     """
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'profile/profile.html'
 
+    def get_template_names(self):
+        if self.action == 'list':
+            return ['profile/list.html']
+        return ['profile/retrieve.html']
 
