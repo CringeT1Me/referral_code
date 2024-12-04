@@ -18,7 +18,7 @@
                 <p>Номер телефона: {{ phone_number }}</p>
             {% endif %}
             <p>Реферальный код: {{ referral_code }}</p>
-            {% if referrals and id == user.id %}
+            {% if referrals %}
                 <p>Рефералы:</p>
                 <ul>
                     {% for referral in referrals %}
