@@ -7,9 +7,3 @@ class PhoneLoginForm(forms.Form):
         label='Номер телефона',
         required=True
     )
-    code = forms.CharField(
-        max_length=6,
-        label='Код подтверждения',
-        required=False,
-        widget=forms.TextInput(attrs={'placeholder': 'Введите код'}),
-    )

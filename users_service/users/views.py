@@ -25,7 +25,7 @@ class BaseUserViewSet(GenericViewSet, RetrieveModelMixin, ListModelMixin):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
     UserModel = get_user_model()
-    queryset = UserModel.objects.all()
+    queryset = UserModel.objects.all().order_by('id')
 
     def get_serializer_class(self):
         return UserSerializer
@@ -47,7 +47,6 @@ class BaseUserViewSet(GenericViewSet, RetrieveModelMixin, ListModelMixin):
         operation_summary='Получить список пользователей.',
         operation_description='Возвращает список пользователей в пределах пагинации.',
         responses={
-            200: openapi.Response('Список пользователей.', UserSerializer(many=True)),
             403: openapi.Response('Пользователь не авторизован.'),
             404: openapi.Response('Страница пуста')
         }

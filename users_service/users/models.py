@@ -8,11 +8,16 @@ from users.managers import CustomUserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    referral_code = models.CharField(max_length=6, validators=[MinLengthValidator(6)])
-    phone_number = PhoneNumberField(unique=True)
-    refers_to = models.ForeignKey(to='self', on_delete=SET_NULL, null=True, blank=True)
+    referral_code = models.CharField(verbose_name='Реферальный код', max_length=6, validators=[MinLengthValidator(6)])
+    phone_number = PhoneNumberField(verbose_name='Номер телефона', unique=True)
+    refers_to = models.ForeignKey(
+        verbose_name='Пользователь, к которому применен реферальный код',
+        to='self',
+        on_delete=SET_NULL,
+        null=True,
+        blank=True)
 
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(verbose_name='Админ', default=False)
 
     objects = CustomUserManager()
 
@@ -21,3 +26,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return str(self.phone_number)
 
+    class Meta:
+        verbose_name = 'пользователя'
+        verbose_name_plural = 'пользователи'
